@@ -3,11 +3,11 @@
 # Get publicly available RDF from my Solid POD
 #
 # This curl command works, but the subject would be lost
-# curl https://wallberg.solid.community/profile/card#me > solid.ttl
+# curl https://wallberg.solidcommunity.net/profile/card#me > solid.ttl
 #
 # Rapper can also retrieve via HTTP and knows how to preserve the subject
 
-rapper -i turtle -o turtle https://wallberg.solid.community/profile/card#me > solid.ttl
+rapper -i turtle -o turtle https://wallberg.solidcommunity.net/profile/card#me > solid.ttl
 
 
 # Fetch schema.org information from the Libraries' Staff Directory
