@@ -12,8 +12,8 @@ rapper -i turtle -o turtle https://wallberg.solidcommunity.net/profile/card#me >
 
 # Fetch schema.org information from the Libraries' Staff Directory
 # This loses the subject
-
-any23 rover -e html-embedded-jsonld -f turtle -o staff-directory.ttl https://www.lib.umd.edu/directory/staff/wallberg
+# The Libraries' Website staff directory entry no longer contains embedded json-ld
+#any23 rover -e html-embedded-jsonld -f turtle -o staff-directory.ttl https://www.lib.umd.edu/directory/staff/wallberg
 
 # Fetch ORCID public information
 
