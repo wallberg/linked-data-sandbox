@@ -15,8 +15,7 @@ rapper -i turtle -o turtle https://wallberg.solidcommunity.net/profile/card#me >
 
 any23 rover -e html-embedded-jsonld -f turtle -o staff-directory.ttl https://www.lib.umd.edu/directory/staff/wallberg
 
-
 # Fetch ORCID public information
-# ORCID does not currently distribute works information via RDF
-#
+
 rapper -o turtle https://orcid.org/0000-0002-4904-005X > orcid.ttl
+any23 rover -e rdf-jsonld -f turtle https://orcid.org/0000-0002-4904-005X > orcid-works.ttl
