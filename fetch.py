@@ -9,23 +9,21 @@ sources = [
     "http://vocab.lib.umd.edu/collection#0068-LBR-RG9-003",
 ]
 
-# Create a Graph
+# Create or open a Graph with Berkeley DB persistence store
 g = Graph('BerkeleyDB', identifier='graph')
 
 g.open('graph', create=True)
-print(f'{len(g)=}')
+print(f'Triples at start: {len(g)}')
 
 for source in sources:
 
+    # Determine if this source already exists in the graph
     q = f"""
     SELECT ?o
     WHERE {{
         <{source}> ?p ?o .
     }}
 """
-    # print(q)
-
-    # Apply the query to the graph and iterate through results
 
     in_graph = False
     for r in g.query(q):
@@ -33,26 +31,11 @@ for source in sources:
         break
 
     if not in_graph:
+        # Add this source to the graph
         print(f'Adding {source=}')
+
         g.parse(source=source)
 
-print(f'{len(g)=}')
-
-# Print out the combined Graph in the RDF Turtle format
-# print("---------------")
-# print(g.serialize(format="turtle"))
-
-# Query the data in g using SPARQL
-# This query returns the 'name' of all ``foaf:Person`` instances
-q = """
-    SELECT ?s ?p ?o
-    WHERE {
-        ?s ?p ?o .
-    }
-"""
-
-# Apply the query to the graph and iterate through results
-for r in g.query(q):
-    print(r)
+print(f'Triples at end: {len(g)}')
 
 g.close()
