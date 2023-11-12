@@ -1,2 +1,3 @@
-BenWallberg/*.ttl
+**.ttl
 .venv/
+graph/

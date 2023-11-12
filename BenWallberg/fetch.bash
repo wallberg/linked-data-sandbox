@@ -4,10 +4,8 @@
 #
 # This curl command works, but the subject would be lost
 # curl https://wallberg.solidcommunity.net/profile/card#me > solid.ttl
-#
-# Rapper can also retrieve via HTTP and knows how to preserve the subject
 
-rapper -i turtle -o turtle https://wallberg.solidcommunity.net/profile/card#me > solid.ttl
+python -m rdflib.tools.rdfpipe -i turtle -o turtle https://wallberg.solidcommunity.net/profile/card#me > solid.ttl
 
 
 # Fetch schema.org information from the Libraries' Staff Directory
@@ -17,5 +15,5 @@ rapper -i turtle -o turtle https://wallberg.solidcommunity.net/profile/card#me >
 
 # Fetch ORCID public information
 
-rapper -o turtle https://orcid.org/0000-0002-4904-005X > orcid.ttl
-any23 rover -e rdf-jsonld -f turtle https://orcid.org/0000-0002-4904-005X > orcid-works.ttl
+python -m rdflib.tools.rdfpipe -i turtle -o turtle https://orcid.org/0000-0002-4904-005X > orcid.ttl
+python -m rdflib.tools.rdfpipe -i json-ld -o turtle https://orcid.org/0000-0002-4904-005X > orcid-works.ttl
