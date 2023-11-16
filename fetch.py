@@ -23,7 +23,7 @@ g.open('graph', create=True)
 print(f'Triples at start: {len(g)}')
 
 # Document sources we have already fetched
-sources = set([subject.defrag() for subject in g.subjects(predicate=None, object=None, unique=True)])
+sources = set([subject.defrag() for subject in g.subjects(None, None, True)])
 
 i = 0
 while i < len(subjects):
@@ -38,7 +38,7 @@ while i < len(subjects):
 
     # Determine if the new triples have an object which
     # we want to follow
-    for _, _, object in g.triples((subject, None, None)):
+    for object in g.objects(subject, None):
         if isinstance(object, URIRef):
             newsubject = object
             if newsubject not in subjects and any(newsubject.startswith(follow) for follow in follows):
