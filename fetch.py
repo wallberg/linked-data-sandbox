@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from rdflib import Graph, ConjunctiveGraph
+from rdflib import Dataset
 from rdflib.term import URIRef
 
 # Initial list of subjects to populate the graph
@@ -17,7 +17,7 @@ follows = set([
 ])
 
 # Create or open a Graph with Berkeley DB persistence store
-g = ConjunctiveGraph('BerkeleyDB')
+g = Dataset('BerkeleyDB')
 g.open('graph', create=True)
 
 print(f'Triples at start: {len(g)}')

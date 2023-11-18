@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from rdflib import Graph, ConjunctiveGraph
+from rdflib import Dataset
 from rdflib.namespace import Namespace
 
 # For some reason, switching to ConjunctiveGraph seems to
@@ -17,7 +17,7 @@ FEDORA = Namespace("http://fedora.info/definitions/v4/repository#")
 BIBO = Namespace("http://purl.org/ontology/bibo/")
 
 # Create a Graph
-g = ConjunctiveGraph('BerkeleyDB')
+g = Dataset('BerkeleyDB')
 g.open('graph')
 
 # Print out the combined Graph in the RDF Turtle format
