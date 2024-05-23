@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-from rdflib import Dataset
+from rdflib import plugin, Dataset
 from rdflib.term import URIRef
+from rdflib.store import Store
 
 # Initial list of subjects to populate the graph
 subjects = [
@@ -16,9 +17,12 @@ follows = set([
     URIRef("http://vocab.lib.umd.edu/"),
 ])
 
-# Create or open a Graph with Berkeley DB persistence store
-g = Dataset('BerkeleyDB')
-g.open('graph', create=True)
+# Create or open a Graph with Level DB persistence store
+path = "./storedb"
+store = plugin.get("LevelDB", Store)(identifier=URIRef("ld-sandbox"))
+
+g = Dataset(store)
+g.open(path, create=False)
 
 print(f'Triples at start: {len(g)}')
 
