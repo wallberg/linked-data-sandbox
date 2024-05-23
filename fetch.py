@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from os import path
+
 from rdflib import plugin, Dataset
 from rdflib.term import URIRef
 from rdflib.store import Store
@@ -20,11 +22,13 @@ follows = set([
 ])
 
 # Create or open a Graph with Level DB persistence store
-path = "./storedb"
 store = plugin.get("LevelDB", Store)(identifier=URIRef("ld-sandbox"))
 
+dbpath = "./storedb"
+create = not path.exists(dbpath)
+
 g = Dataset(store)
-g.open(path, create=False)
+g.open(dbpath, create=create)
 
 print(f'Triples at start: {len(g)}')
 
