@@ -33,16 +33,16 @@ store = plugin.get("LevelDB", Store)(identifier=URIRef(store_db["identifier"]))
 dbpath = store_db["file"]
 create = not path.exists(dbpath)
 
-g = Dataset(store)
-g.open(dbpath, create=create)
+ds = Dataset(store)
+ds.open(dbpath, create=create)
 
-print(f'Triples at start: {len(g)}')
+print(f'Triples at start: {len(ds)}')
 
 # Document sources we have already fetched
 sources = set([
     subject.defrag() if isinstance(subject, URIRef) else subject
     for subject
-    in g.subjects(None, None, True)
+    in ds.subjects(None, None, True)
 ])
 
 i = 0
@@ -55,11 +55,11 @@ while i < len(subjects):
         # Add this source to the graph
         print(f'Adding {source=}')
 
-        g.parse(source=source, format=format)
+        ds.parse(source=source, format=format)
 
         # Determine if the new triples have an object which
         # we want to follow
-        for object in g.objects(subject, None):
+        for object in ds.objects(subject, None):
             if isinstance(object, URIRef):
                 newsubject = object
                 if newsubject not in subjects and any(newsubject.startswith(follow) for follow in follows):
@@ -70,6 +70,6 @@ while i < len(subjects):
 
 # Print out the combined Graph in the RDF Turtle format
 #print(g.serialize(format="turtle"))
-print(f'Triples at end: {len(g)}')
+print(f'Triples at end: {len(ds)}')
 
-g.close()
+ds.close()
