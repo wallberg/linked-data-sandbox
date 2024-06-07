@@ -14,7 +14,7 @@ config = Config()
 subjects = []
 for graph in config.config["graphs"]:
     for source in graph["sources"]:
-        subject = URIRef(source["uri"])
+        subject = URIRef(source["iri"])
         format = source.get("format", None)
         subjects.append((subject, format))
 
