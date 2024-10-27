@@ -27,16 +27,12 @@ follows = set([
 
 store_db = config.config["store_db"]
 
-# Create or open a Graph with Level DB persistence store
-store = plugin.get("LevelDB", Store)(identifier=URIRef(store_db["identifier"]))
-
+# Create or open a Graph with Berkeley DB persistence store
 dbpath = store_db["file"]
-create = not path.exists(dbpath)
+ds = Dataset("BerkeleyDB")
+ds.open(dbpath, create=True)
 
-ds = Dataset(store)
-ds.open(dbpath, create=create)
-
-print(f'Triples at start: {len(ds)}')
+print(f"Triples at start: {len(ds)}")
 
 # Document sources we have already fetched
 sources = set([
