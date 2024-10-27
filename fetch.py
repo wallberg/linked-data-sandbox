@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
-from os import path
-
-from rdflib import plugin, Dataset
+from rdflib import Dataset
 from rdflib.term import URIRef
-from rdflib.store import Store
 
 from config import Config
 
