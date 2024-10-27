@@ -4,16 +4,16 @@ store_db:
 
 graphs:
 
-- identifier: "drum"
+- identifier: "https://drum.lib.umd.edu"
   sources:
   - iri: "https://drum.lib.umd.edu/items/f4d2184d-4bde-46aa-8477-25e8605c8cc4"
     format: json-ld
 
-- identifier: "wikidata"
+- identifier: "https://www.wikidata.org"
   sources:
   - iri: "https://www.wikidata.org/entity/Q7730092"
 
-- identifier: "fcrepo"
+- identifier: "https://fcrepo.lib.umd.edu"
   sources:
   - iri: "https://fcrepo.lib.umd.edu/fcrepo/rest/dc/2023/1/0a/d9/1a/5e/0ad91a5e-4111-45ec-aba8-42ab3651213f"
   - iri: "https://fcrepo.lib.umd.edu/fcrepo/rest/pcdm/04/14/ef/d2/0414efd2-a519-48fd-b361-28c79082f58b"

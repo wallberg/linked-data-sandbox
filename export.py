@@ -18,9 +18,9 @@ BIBO = Namespace("http://purl.org/ontology/bibo/")
 
 # Create a Graph
 g = Dataset('BerkeleyDB')
-g.open('graph')
+g.open("storedb")
 
 # Print out the combined Graph in the RDF Turtle format
-print(g.serialize(format="turtle"))
+print(g.serialize(format="trig"))
 
 g.close()
