@@ -2,11 +2,14 @@ berkeleydb==18.1.8
 certifi==2023.11.17
 charset-normalizer==3.3.2
 docutils==0.20.1
+html5lib-modern==1.2
 idna==3.4
 isodate==0.6.1
 pyparsing==3.1.1
+PyYAML==6.0.2
 rdflib==7.1.0
 requests==2.31.0
+ruff==0.7.1
 six==1.16.0
 sseclient==0.0.27
 urllib3==2.1.0
