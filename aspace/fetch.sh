@@ -5,7 +5,7 @@
 # Spiro Agnew Papers
 #
 
-any23 rover -e html-embedded-jsonld -f turtle https://archives.lib.umd.edu/repositories/2/resources/963 > agnew-papers.ttl
+rdfpipe -i json-ld -o turtle https://archives.lib.umd.edu/repositories/2/resources/963 > agnew-papers.ttl
 
 # Includes internal references to:
 #  Spiro Agnew:  schema:creator <https://archives.lib.umd.edu//agents/people/5256>
@@ -14,5 +14,7 @@ any23 rover -e html-embedded-jsonld -f turtle https://archives.lib.umd.edu/repos
 # The information included for subject https://archives.lib.umd.edu/repositories/2/resources/963 is a subset of
 # what is included when you request the document https://archives.lib.umd.edu/repositories/2/resources/963 .
 
-any23 rover -e html-embedded-jsonld -f turtle https://archives.lib.umd.edu/agents/people/5256 > agnew.ttl
-any23 rover -e html-embedded-jsonld -f turtle https://archives.lib.umd.edu/repositories/2 > scua.ttl
+# It appears that digital objects don't contain JSON-LD, eg https://archives.lib.umd.edu/repositories/2/digital_objects/16835
+
+rdfpipe -i json-ld -o turtle https://archives.lib.umd.edu/agents/people/5256 > agnew.ttl
+rdfpipe -i json-ld -o turtle https://archives.lib.umd.edu/repositories/2 > scua.ttl
