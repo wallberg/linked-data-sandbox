@@ -71,36 +71,38 @@ for repo in aspace.repositories:
         repo_uri = URIRef(ASPACE + repo.uri)
 
         # Iterate over published digital objects
-        for digital_object in repo.digital_objects:
+        for do in repo.digital_objects:
 
-            # TODO: use file_version instead of representative_file_version?
-            if digital_object.publish and hasattr(digital_object, "representative_file_version"):
+            if do.publish:
 
-                object_uri = URIRef(ASPACE + digital_object.uri)
+                object_uri = URIRef(ASPACE + do.uri)
 
                 logger.info(f"{object_uri=}")
 
                 if debug:
-                    pprint(vars(digital_object))
+                    pprint(vars(do))
 
                 g.add((object_uri, RDF.type, URIRef(SCHEMA + "ArchiveComponent")))
                 g.add((object_uri, URIRef(SCHEMA + "holdingArchive"), repo_uri))
-                g.add((object_uri, URIRef(SCHEMA + "name"), Literal(digital_object.title)))
+                g.add((object_uri, URIRef(SCHEMA + "name"), Literal(do.title)))
                 g.add((object_uri, URIRef(SCHEMA + "dateCreated"),
-                    Literal(digital_object.representative_file_version.create_time, datatype=XSD.dateTime)))
-                g.add((object_uri, URIRef(SCHEMA + "dateModified"),
-                    Literal(digital_object.representative_file_version.user_mtime, datatype=XSD.dateTime)))
+                    Literal(do.create_time, datatype=XSD.dateTime)))
 
-                for collection in digital_object.collection:
+                for collection in do.collection:
                     g.add((object_uri, URIRef(SCHEMA + "isPartOf"), URIRef(ASPACE + collection.ref)))
 
-                g.add((object_uri, URIRef(SCHEMA + "thumbnailUrl"), Literal(digital_object.representative_file_version.file_uri)))
-                g.add((object_uri, URIRef(SCHEMA + "sameAs"), Literal(digital_object.representative_file_version.link_uri)))
-                g.add((object_uri, URIRef(SCHEMA + "url"), Literal(digital_object.representative_file_version.link_uri)))
-
+                # Get most recent file_version
+                file_versions = list(do.file_versions)
+                if len(file_versions) > 0:
+                    file_version = file_versions[0]
+                    g.add((object_uri, URIRef(SCHEMA + "dateModified"),
+                        Literal(file_version.user_mtime, datatype=XSD.dateTime)))
+                    if "file_uri" in dir(file_version):
+                        g.add((object_uri, URIRef(SCHEMA + "thumbnailUrl"), Literal(file_version.file_uri)))
+                    if "link_uri" in dir(file_version):
+                        g.add((object_uri, URIRef(SCHEMA + "sameAs"), Literal(file_version.link_uri)))
+                        g.add((object_uri, URIRef(SCHEMA + "url"), Literal(file_version.link_uri)))
                 # creator?
-
-                # break
 
 # print(ds.serialize(format="trig"))
 ds.serialize(destination=Path("./aspace-objects.trig"), format="trig")
