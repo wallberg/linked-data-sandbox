@@ -1,5 +1,7 @@
 **.ttl
+**.trig
 .venv/
 graph/
 storedb/
 **.pyc
+**.env
