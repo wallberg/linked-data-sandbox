@@ -65,14 +65,15 @@ aspace = ASpace(**config)
 aspace.authorize()
 
 # Iterate over published repositories
+# for repo in [aspace.repositories(2)]:
 for repo in aspace.repositories:
     if repo.publish:
 
         repo_uri = URIRef(ASPACE + repo.uri)
 
         # Iterate over published digital objects
+        # for do in [repo.digital_objects(10000)]:
         for do in repo.digital_objects:
-
             if do.publish:
 
                 object_uri = URIRef(ASPACE + do.uri)
@@ -83,6 +84,8 @@ for repo in aspace.repositories:
                     pprint(vars(do))
 
                 g.add((object_uri, RDF.type, URIRef(SCHEMA + "ArchiveComponent")))
+                g.add((object_uri, RDF.type, URIRef(SCHEMA + "MediaObject")))
+
                 g.add((object_uri, URIRef(SCHEMA + "holdingArchive"), repo_uri))
                 g.add((object_uri, URIRef(SCHEMA + "name"), Literal(do.title)))
                 g.add((object_uri, URIRef(SCHEMA + "dateCreated"),
@@ -97,11 +100,21 @@ for repo in aspace.repositories:
                     file_version = file_versions[0]
                     g.add((object_uri, URIRef(SCHEMA + "dateModified"),
                         Literal(file_version.user_mtime, datatype=XSD.dateTime)))
+
+                    uris = []
                     if "file_uri" in dir(file_version):
-                        g.add((object_uri, URIRef(SCHEMA + "thumbnailUrl"), Literal(file_version.file_uri)))
+                        uris.append(file_version.file_uri)
                     if "link_uri" in dir(file_version):
-                        g.add((object_uri, URIRef(SCHEMA + "sameAs"), Literal(file_version.link_uri)))
-                        g.add((object_uri, URIRef(SCHEMA + "url"), Literal(file_version.link_uri)))
+                        uris.append(file_version.link_uri)
+
+                    for uri in uris:
+                        if "iiif.lib.umd.edu" in uri:
+                            g.add((object_uri, URIRef(SCHEMA + "thumbnailUrl"), Literal(uri)))
+                        else:
+                            if "hdl.handle.net" in uri:
+                                g.add((object_uri, URIRef(SCHEMA + "sameAs"), Literal(uri)))
+                            g.add((object_uri, URIRef(SCHEMA + "url"), Literal(uri)))
+
                 # creator?
 
 # print(ds.serialize(format="trig"))
