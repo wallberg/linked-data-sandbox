@@ -103,9 +103,9 @@ for repo in aspace.repositories:
 
                     uris = []
                     if "file_uri" in dir(file_version):
-                        uris.append(file_version.file_uri)
+                        uris.append(file_version.file_uri.strip())
                     if "link_uri" in dir(file_version):
-                        uris.append(file_version.link_uri)
+                        uris.append(file_version.link_uri.strip())
 
                     for uri in uris:
                         if "iiif.lib.umd.edu" in uri:
