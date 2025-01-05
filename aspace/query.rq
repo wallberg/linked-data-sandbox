@@ -1,13 +1,12 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 
-SELECT distinct ?repo ?do ?handle
+SELECT ?repo ?do ?handle
 
 FROM <https://archives.lib.umd.edu/>
 
 WHERE {
-  ?do a schema:ArchiveComponent ;
+  ?do a schema:MediaObject ;
       schema:sameAs ?handle ;
       schema:isPartOf ?repo .
-  FILTER regex(?handle, "handle.net")
 }
