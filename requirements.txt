@@ -17,7 +17,6 @@ rdflib==7.1.0
 requests==2.31.0
 ruff==0.7.1
 six==1.16.0
-sseclient==0.0.27
 structlog==24.4.0
 urllib3==2.1.0
 xmltodict==0.14.2
