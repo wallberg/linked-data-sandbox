@@ -5,3 +5,4 @@ graph/
 storedb/
 **.pyc
 **.env
+**test.py
