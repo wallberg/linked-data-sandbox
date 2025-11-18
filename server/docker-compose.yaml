@@ -1,0 +1,13 @@
+
+services:
+    jena-fuseki:
+      # Local build of https://github.com/stain/jena-docker
+      image: jena-fuseki:latest
+      volumes:
+        - fuseki-data:/fuseki
+      ports:
+        - "3030:3030"
+      restart: unless-stopped
+
+volumes:
+    fuseki-data: {}
