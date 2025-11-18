@@ -1,0 +1,38 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX pr: <http://www.wikidata.org/prop/reference/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+
+SELECT ?entity ?entityName ?wds ?collectionName ?scopeContent ?referenceURL
+
+FROM <https://www.wikidata.org/>
+
+WHERE {
+
+# archives at University of Maryland Libraries
+?entity rdfs:label ?entityName ;
+    p:P485 ?wds .
+
+?wds ps:P485 wd:Q7895690 ;
+    prov:wasDerivedFrom ?wdref .
+
+?wdref pr:P854 ?referenceURL.
+
+OPTIONAL {
+?wds ps:P485 wd:Q7895690 ;
+    # object named as
+    pq:P1932 ?collectionName ;
+    # scope and content
+    pq:P7535 ?scopeContent ;
+}
+
+FILTER (lang(?entityName) = "en")
+
+}
