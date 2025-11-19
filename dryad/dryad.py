@@ -4,7 +4,7 @@ import argparse
 import time
 
 import requests
-from rdflib import Dataset
+from rdflib import Dataset, Namespace
 
 BASEURL = "https://datadryad.org"
 
@@ -14,7 +14,10 @@ params={
     'affiliation': 'https://ror.org/047s2c258',
 }
 
+SCHEMA = Namespace("http://schema.org/")
+
 ds = Dataset()
+ds.bind("schema", SCHEMA)
 
 g = ds.graph("https://datadryad.org/")
 
@@ -42,8 +45,6 @@ while True:
 
     print(search_url)
     response = requests.get(search_url)
-
-    break
 
 
 ds.serialize(destination=Path("dryad.trig"), format="trig")
