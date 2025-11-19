@@ -56,7 +56,7 @@ def query_orcid(query):
 orcid_ids = set()
 for query in [
     'email:*@umd.edu',
-    'affiliation-org-name:("University of Maryland" OR "UMD" OR "University of Maryland, College Park" OR "UMCP")',
+    'affiliation-org-name:("UMD" OR "University of Maryland, College Park" OR "UMCP")',
     'ror-org-id:"https://ror.org/047s2c258"',
     'grid-org-id:"grid.164295.d"',
 ]:
