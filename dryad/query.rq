@@ -1,0 +1,18 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?entity ?creatorName
+FROM <https://datadryad.org/>
+WHERE {
+   ?entity a schema:Dataset.
+   ?entity schema:creator ?creator.
+
+   ?creator schema:name ?creatorName .
+   ?creator rdf:type schema:Person .
+
+   ?creator schema:affiliation ?affiliation .
+   ?affiliation rdf:type schema:Organization .
+   ?affiliation schema:sameAs <https://ror.org/047s2c258> .
+
+#    VALUES ?entity { <https://doi.org/10.5061/dryad.02qv3> }
+}
