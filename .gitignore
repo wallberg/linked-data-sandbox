@@ -6,3 +6,7 @@ storedb/
 **.pyc
 **.env
 **test.py
+**.xml
+**.json
+**.html
+**.txt
